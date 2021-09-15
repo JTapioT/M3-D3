@@ -16,7 +16,7 @@ window.onload = () => {
       console.log(responseBody.photos);
 
       // CONTAINER FOR IMAGES:
-      let row = document.querySelector(".row");
+      let row = document.getElementById('row');
 
       row.innerHTML ="";
 
@@ -25,14 +25,13 @@ window.onload = () => {
 
       let divCard = document.createElement("div");
       divCard.className ="col-md-4";
-      
       divCard.innerHTML = `
-      <div class="card">
-      <img src=${responseBody.photos[i].src.medium} class="card-img-top" alt="...">
+      <div class="card mb-4">
+      <img src=${responseBody.photos[i].src.medium} class="card-img-top" alt="..." style=" height: 250px;">
       <div class="card-body">
         <h5 class="card-title">${responseBody.photos[i].id}</h5>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="#" class="btn btn-warning">Hide</a>
       </div>`;
       
 
@@ -47,6 +46,62 @@ window.onload = () => {
   let primaryBtn = document.querySelector(".btn-primary");
   primaryBtn.addEventListener("click", showImages);
 
+// EX 2
+  function showSecondaryImages() {
+    // FETCH IMAGES:
+    fetch("https://api.pexels.com/v1/search?query=ai", {
+      headers: {
+        Authorization: apiKey,
+      },
+    })
+      .then((response) => response.json())
+      .then(responseBody => {
+
+      console.log(responseBody.photos);
+
+      // CONTAINER FOR IMAGES:
+      let row = document.getElementById('row');
+
+      row.innerHTML ="";
+
+      for(let i = 0; i < responseBody.photos.length; i++) {
+      console.log(responseBody.photos[i].src.medium)
+
+      let divCard = document.createElement("div");
+      divCard.className ="col-md-4";
+      divCard.innerHTML = `
+      <div class="card mb-4">
+      <img src=${responseBody.photos[i].src.medium} class="card-img-top" alt="..." " style=" height: 250px;">
+      <div class="card-body">
+        <h5 class="card-title">${responseBody.photos[i].id}</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-warning" onclick="hideCard()">Hide</a>
+      </div>`;
+      
+
+      row.appendChild(divCard);
+      }
+      console.log(row);
+    })
+    .catch((error) => console.log(error));
+    
+  }
+
+  let secondaryBtn = document.querySelector(".btn-secondary");
+  secondaryBtn.addEventListener("click", showSecondaryImages);
+
+ const hideCard = () => {
+   const secondaryBtn = document.querySelectorAll(".btn-warning")
+   secondaryBtn.className = "d-none"
+ }
+
+  
+
+
+  
+
+
+  
 
   /* 
 fetch("https://api.pexels.com/v1/search?query=your-query", {
