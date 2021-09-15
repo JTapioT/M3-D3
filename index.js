@@ -36,10 +36,9 @@ window.onload = () => {
       row.appendChild(divCard);
       }
       console.log(row);
-      
+
       // HIDE THE CARDS FUNCTIONALITY
       let btnHide = document.querySelectorAll(".card");
-      console.log(btnHide);
       btnHide.forEach((card) => {
         card.addEventListener("click", () => {
           card.classList.add("d-none");
