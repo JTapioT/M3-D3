@@ -16,7 +16,7 @@ window.onload = () => {
       console.log(responseBody.photos);
 
       // CONTAINER FOR IMAGES:
-      let row = document.querySelector(".row");
+      let row = document.getElementById("row");
 
       row.innerHTML ="";
 
@@ -25,14 +25,12 @@ window.onload = () => {
 
       let divCard = document.createElement("div");
       divCard.className ="col-md-4";
-      
-      divCard.innerHTML = `
-      <div class="card">
+
+      divCard.innerHTML = `<div class="card">
       <img src=${responseBody.photos[i].src.medium} class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">${responseBody.photos[i].id}</h5>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>`;
       
 
