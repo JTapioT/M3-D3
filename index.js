@@ -1,6 +1,62 @@
+// API KEY:
+const apiKey = "563492ad6f917000010000018b655e92ca224e91ba8407a1cd0c5a56";
+
+// Search for any image 
+
+
+
+
+function searchImages(event) {
+const query = event.target.value;
+console.log(query)
+ search(query)
+
+ .then(response => response.json())
+ .then(response => {
+    // console logging the date of the search
+    console.log(response.photos)
+    // container for dynamic images
+    let container = document.getElementById('row')
+        container.innerHTML= ''
+
+          response.photos.forEach(photos => {
+          let divCard = document.createElement("div");
+          divCard.className ="col-md-4";
+          divCard.innerHTML = `
+          <div class="card mb-4">
+          <img src=${photos.src.medium} class="card-img-top" alt="..." style=" height: 250px;">
+          <div class="card-body">
+            <h5 class="card-title">${photos.id}</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-warning">Hide</a>
+          </div>`;
+          
+    
+          row.appendChild(divCard);
+        })
+        console.log(query)
+ })
+ .catch(error => {
+   console.error(error)
+ })
+}
+
+function search(query) {
+  return fetch("https://api.pexels.com/v1/search?query=" + query, {
+    headers: {
+      Authorization: apiKey,
+    },
+  })      
+}
+
+
+
+
+
 window.onload = () => {
-  // API KEY:
-  const apiKey = "563492ad6f917000010000018b655e92ca224e91ba8407a1cd0c5a56";
+    search()
+
+  
 
   // EXERCISE 1:
   function showImages() {
@@ -21,7 +77,7 @@ window.onload = () => {
       row.innerHTML ="";
 
       for(let i = 0; i < responseBody.photos.length; i++) {
-      console.log(responseBody.photos[i].src.medium)
+      // console.log(responseBody.photos[i].src.medium)
 
       let divCard = document.createElement("div");
       divCard.className ="col-md-4";
@@ -65,7 +121,7 @@ window.onload = () => {
       row.innerHTML ="";
 
       for(let i = 0; i < responseBody.photos.length; i++) {
-      console.log(responseBody.photos[i].src.medium)
+      // console.log(responseBody.photos[i].src.medium)
 
       let divCard = document.createElement("div");
       divCard.className ="col-md-4";
@@ -81,19 +137,27 @@ window.onload = () => {
 
       row.appendChild(divCard);
       }
-      console.log(row);
+              // HIDE THE CARDS FUNCTIONALITY
+              let btnHide = document.querySelectorAll(".card");
+              console.log(btnHide);
+              btnHide.forEach((card) => {
+                card.addEventListener("click", () => {
+                  card.classList.add("d-none");
+                });
+              });
     })
-    .catch((error) => console.log(error));
+   .catch(err => {
+     console.error(err);
+   })
     
   }
 
   let secondaryBtn = document.querySelector(".btn-secondary");
   secondaryBtn.addEventListener("click", showSecondaryImages);
 
- const hideCard = () => {
-   const secondaryBtn = document.querySelectorAll(".btn-warning")
-   secondaryBtn.className = "d-none"
- }
+
+
+
 
   
 
